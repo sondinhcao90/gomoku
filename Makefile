@@ -15,7 +15,7 @@ CXX           = g++
 DEFINES       = -DQT_DEPRECATED_WARNINGS -DQT_QML_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -g -Wall -W -D_REENTRANT -fPIC $(DEFINES)
 CXXFLAGS      = -pipe -g -std=gnu++11 -Wall -W -D_REENTRANT -fPIC $(DEFINES)
-INCPATH       = -I. -IViews -IGlobals -I../../Qt5.9.3/5.9.3/gcc_64/include -I../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets -I../../Qt5.9.3/5.9.3/gcc_64/include/QtGui -I../../Qt5.9.3/5.9.3/gcc_64/include/QtCore -I. -isystem /usr/include/libdrm -I. -I../../Qt5.9.3/5.9.3/gcc_64/mkspecs/linux-g++
+INCPATH       = -I. -IViews -IGlobals -I../../Qt5.9.3/5.9.3/gcc_64/include -I../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets -I../../Qt5.9.3/5.9.3/gcc_64/include/QtGui -I../../Qt5.9.3/5.9.3/gcc_64/include/QtCore -IMOC_FILE -isystem /usr/include/libdrm -IUI_FILE -I../../Qt5.9.3/5.9.3/gcc_64/mkspecs/linux-g++
 QMAKE         = /home/sonvd3/Qt5.9.3/5.9.3/gcc_64/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -35,7 +35,7 @@ MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = Gomoku1.0.0
-DISTDIR = /home/sonvd3/workspace/Gomoku/.tmp/Gomoku1.0.0
+DISTDIR = /home/sonvd3/workspace/Gomoku/OBJ_FILE/Gomoku1.0.0
 LINK          = g++
 LFLAGS        = -Wl,-rpath,/home/sonvd3/Qt5.9.3/5.9.3/gcc_64/lib
 LIBS          = $(SUBLIBS) -L/home/sonvd3/Qt5.9.3/5.9.3/gcc_64/lib -lQt5Widgets -lQt5Gui -lQt5Core -lGL -lpthread 
@@ -46,23 +46,23 @@ STRIP         = strip
 
 ####### Output directory
 
-OBJECTS_DIR   = ./
+OBJECTS_DIR   = OBJ_FILE/
 
 ####### Files
 
 SOURCES       = main.cpp \
 		Views/Login.cpp \
 		Views/Welcome.cpp \
-		Views/MainWindow.cpp moc_Login.cpp \
-		moc_Welcome.cpp \
-		moc_MainWindow.cpp
-OBJECTS       = main.o \
-		Login.o \
-		Welcome.o \
-		MainWindow.o \
-		moc_Login.o \
-		moc_Welcome.o \
-		moc_MainWindow.o
+		Views/MainWindow.cpp MOC_FILE/moc_Login.cpp \
+		MOC_FILE/moc_Welcome.cpp \
+		MOC_FILE/moc_MainWindow.cpp
+OBJECTS       = OBJ_FILE/main.o \
+		OBJ_FILE/Login.o \
+		OBJ_FILE/Welcome.o \
+		OBJ_FILE/MainWindow.o \
+		OBJ_FILE/moc_Login.o \
+		OBJ_FILE/moc_Welcome.o \
+		OBJ_FILE/moc_MainWindow.o
 DIST          = ../../Qt5.9.3/5.9.3/gcc_64/mkspecs/features/spec_pre.prf \
 		../../Qt5.9.3/5.9.3/gcc_64/mkspecs/common/unix.conf \
 		../../Qt5.9.3/5.9.3/gcc_64/mkspecs/common/linux.conf \
@@ -262,7 +262,7 @@ TARGET        = Gomoku
 first: all
 ####### Build rules
 
-$(TARGET): ui_Login.h ui_Welcome.h $(OBJECTS)  
+$(TARGET): UI_FILE/ui_Login.h UI_FILE/ui_Welcome.h $(OBJECTS)  
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
 Makefile: Gomoku.pro ../../Qt5.9.3/5.9.3/gcc_64/mkspecs/linux-g++/qmake.conf ../../Qt5.9.3/5.9.3/gcc_64/mkspecs/features/spec_pre.prf \
@@ -683,16 +683,16 @@ benchmark: first
 
 compiler_rcc_make_all:
 compiler_rcc_clean:
-compiler_moc_predefs_make_all: moc_predefs.h
+compiler_moc_predefs_make_all: MOC_FILE/moc_predefs.h
 compiler_moc_predefs_clean:
-	-$(DEL_FILE) moc_predefs.h
-moc_predefs.h: ../../Qt5.9.3/5.9.3/gcc_64/mkspecs/features/data/dummy.cpp
-	g++ -pipe -g -std=gnu++11 -Wall -W -dM -E -o moc_predefs.h ../../Qt5.9.3/5.9.3/gcc_64/mkspecs/features/data/dummy.cpp
+	-$(DEL_FILE) MOC_FILE/moc_predefs.h
+MOC_FILE/moc_predefs.h: ../../Qt5.9.3/5.9.3/gcc_64/mkspecs/features/data/dummy.cpp
+	g++ -pipe -g -std=gnu++11 -Wall -W -dM -E -o MOC_FILE/moc_predefs.h ../../Qt5.9.3/5.9.3/gcc_64/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_Login.cpp moc_Welcome.cpp moc_MainWindow.cpp
+compiler_moc_header_make_all: MOC_FILE/moc_Login.cpp MOC_FILE/moc_Welcome.cpp MOC_FILE/moc_MainWindow.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_Login.cpp moc_Welcome.cpp moc_MainWindow.cpp
-moc_Login.cpp: ../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/QWidget \
+	-$(DEL_FILE) MOC_FILE/moc_Login.cpp MOC_FILE/moc_Welcome.cpp MOC_FILE/moc_MainWindow.cpp
+MOC_FILE/moc_Login.cpp: ../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/QWidget \
 		../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/qwidget.h \
 		../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
 		../../Qt5.9.3/5.9.3/gcc_64/include/QtGui/qtguiglobal.h \
@@ -793,11 +793,11 @@ moc_Login.cpp: ../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/QWidget \
 		../../Qt5.9.3/5.9.3/gcc_64/include/QtGui/qvector2d.h \
 		../../Qt5.9.3/5.9.3/gcc_64/include/QtGui/qtouchdevice.h \
 		Views/Login.h \
-		moc_predefs.h \
+		MOC_FILE/moc_predefs.h \
 		../../Qt5.9.3/5.9.3/gcc_64/bin/moc
-	/home/sonvd3/Qt5.9.3/5.9.3/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/home/sonvd3/Qt5.9.3/5.9.3/gcc_64/mkspecs/linux-g++ -I/home/sonvd3/workspace/Gomoku -I/home/sonvd3/workspace/Gomoku/Views -I/home/sonvd3/workspace/Gomoku/Globals -I/home/sonvd3/Qt5.9.3/5.9.3/gcc_64/include -I/home/sonvd3/Qt5.9.3/5.9.3/gcc_64/include/QtWidgets -I/home/sonvd3/Qt5.9.3/5.9.3/gcc_64/include/QtGui -I/home/sonvd3/Qt5.9.3/5.9.3/gcc_64/include/QtCore -I/usr/include/c++/4.8 -I/usr/include/x86_64-linux-gnu/c++/4.8 -I/usr/include/c++/4.8/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include Views/Login.h -o moc_Login.cpp
+	/home/sonvd3/Qt5.9.3/5.9.3/gcc_64/bin/moc $(DEFINES) --include MOC_FILE/moc_predefs.h -I/home/sonvd3/Qt5.9.3/5.9.3/gcc_64/mkspecs/linux-g++ -I/home/sonvd3/workspace/Gomoku -I/home/sonvd3/workspace/Gomoku/Views -I/home/sonvd3/workspace/Gomoku/Globals -I/home/sonvd3/Qt5.9.3/5.9.3/gcc_64/include -I/home/sonvd3/Qt5.9.3/5.9.3/gcc_64/include/QtWidgets -I/home/sonvd3/Qt5.9.3/5.9.3/gcc_64/include/QtGui -I/home/sonvd3/Qt5.9.3/5.9.3/gcc_64/include/QtCore -I/usr/include/c++/4.8 -I/usr/include/x86_64-linux-gnu/c++/4.8 -I/usr/include/c++/4.8/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include Views/Login.h -o MOC_FILE/moc_Login.cpp
 
-moc_Welcome.cpp: ../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/QWidget \
+MOC_FILE/moc_Welcome.cpp: ../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/QWidget \
 		../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/qwidget.h \
 		../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
 		../../Qt5.9.3/5.9.3/gcc_64/include/QtGui/qtguiglobal.h \
@@ -898,11 +898,11 @@ moc_Welcome.cpp: ../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/QWidget \
 		../../Qt5.9.3/5.9.3/gcc_64/include/QtGui/qvector2d.h \
 		../../Qt5.9.3/5.9.3/gcc_64/include/QtGui/qtouchdevice.h \
 		Views/Welcome.h \
-		moc_predefs.h \
+		MOC_FILE/moc_predefs.h \
 		../../Qt5.9.3/5.9.3/gcc_64/bin/moc
-	/home/sonvd3/Qt5.9.3/5.9.3/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/home/sonvd3/Qt5.9.3/5.9.3/gcc_64/mkspecs/linux-g++ -I/home/sonvd3/workspace/Gomoku -I/home/sonvd3/workspace/Gomoku/Views -I/home/sonvd3/workspace/Gomoku/Globals -I/home/sonvd3/Qt5.9.3/5.9.3/gcc_64/include -I/home/sonvd3/Qt5.9.3/5.9.3/gcc_64/include/QtWidgets -I/home/sonvd3/Qt5.9.3/5.9.3/gcc_64/include/QtGui -I/home/sonvd3/Qt5.9.3/5.9.3/gcc_64/include/QtCore -I/usr/include/c++/4.8 -I/usr/include/x86_64-linux-gnu/c++/4.8 -I/usr/include/c++/4.8/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include Views/Welcome.h -o moc_Welcome.cpp
+	/home/sonvd3/Qt5.9.3/5.9.3/gcc_64/bin/moc $(DEFINES) --include MOC_FILE/moc_predefs.h -I/home/sonvd3/Qt5.9.3/5.9.3/gcc_64/mkspecs/linux-g++ -I/home/sonvd3/workspace/Gomoku -I/home/sonvd3/workspace/Gomoku/Views -I/home/sonvd3/workspace/Gomoku/Globals -I/home/sonvd3/Qt5.9.3/5.9.3/gcc_64/include -I/home/sonvd3/Qt5.9.3/5.9.3/gcc_64/include/QtWidgets -I/home/sonvd3/Qt5.9.3/5.9.3/gcc_64/include/QtGui -I/home/sonvd3/Qt5.9.3/5.9.3/gcc_64/include/QtCore -I/usr/include/c++/4.8 -I/usr/include/x86_64-linux-gnu/c++/4.8 -I/usr/include/c++/4.8/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include Views/Welcome.h -o MOC_FILE/moc_Welcome.cpp
 
-moc_MainWindow.cpp: ../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/QWidget \
+MOC_FILE/moc_MainWindow.cpp: ../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/QWidget \
 		../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/qwidget.h \
 		../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
 		../../Qt5.9.3/5.9.3/gcc_64/include/QtGui/qtguiglobal.h \
@@ -1010,22 +1010,22 @@ moc_MainWindow.cpp: ../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/QWidget \
 		../../Qt5.9.3/5.9.3/gcc_64/include/QtCore/qtimer.h \
 		../../Qt5.9.3/5.9.3/gcc_64/include/QtCore/qbasictimer.h \
 		Views/MainWindow.h \
-		moc_predefs.h \
+		MOC_FILE/moc_predefs.h \
 		../../Qt5.9.3/5.9.3/gcc_64/bin/moc
-	/home/sonvd3/Qt5.9.3/5.9.3/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/home/sonvd3/Qt5.9.3/5.9.3/gcc_64/mkspecs/linux-g++ -I/home/sonvd3/workspace/Gomoku -I/home/sonvd3/workspace/Gomoku/Views -I/home/sonvd3/workspace/Gomoku/Globals -I/home/sonvd3/Qt5.9.3/5.9.3/gcc_64/include -I/home/sonvd3/Qt5.9.3/5.9.3/gcc_64/include/QtWidgets -I/home/sonvd3/Qt5.9.3/5.9.3/gcc_64/include/QtGui -I/home/sonvd3/Qt5.9.3/5.9.3/gcc_64/include/QtCore -I/usr/include/c++/4.8 -I/usr/include/x86_64-linux-gnu/c++/4.8 -I/usr/include/c++/4.8/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include Views/MainWindow.h -o moc_MainWindow.cpp
+	/home/sonvd3/Qt5.9.3/5.9.3/gcc_64/bin/moc $(DEFINES) --include MOC_FILE/moc_predefs.h -I/home/sonvd3/Qt5.9.3/5.9.3/gcc_64/mkspecs/linux-g++ -I/home/sonvd3/workspace/Gomoku -I/home/sonvd3/workspace/Gomoku/Views -I/home/sonvd3/workspace/Gomoku/Globals -I/home/sonvd3/Qt5.9.3/5.9.3/gcc_64/include -I/home/sonvd3/Qt5.9.3/5.9.3/gcc_64/include/QtWidgets -I/home/sonvd3/Qt5.9.3/5.9.3/gcc_64/include/QtGui -I/home/sonvd3/Qt5.9.3/5.9.3/gcc_64/include/QtCore -I/usr/include/c++/4.8 -I/usr/include/x86_64-linux-gnu/c++/4.8 -I/usr/include/c++/4.8/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include Views/MainWindow.h -o MOC_FILE/moc_MainWindow.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
-compiler_uic_make_all: ui_Login.h ui_Welcome.h
+compiler_uic_make_all: UI_FILE/ui_Login.h UI_FILE/ui_Welcome.h
 compiler_uic_clean:
-	-$(DEL_FILE) ui_Login.h ui_Welcome.h
-ui_Login.h: Views/Login.ui \
+	-$(DEL_FILE) UI_FILE/ui_Login.h UI_FILE/ui_Welcome.h
+UI_FILE/ui_Login.h: Views/Login.ui \
 		../../Qt5.9.3/5.9.3/gcc_64/bin/uic
-	/home/sonvd3/Qt5.9.3/5.9.3/gcc_64/bin/uic Views/Login.ui -o ui_Login.h
+	/home/sonvd3/Qt5.9.3/5.9.3/gcc_64/bin/uic Views/Login.ui -o UI_FILE/ui_Login.h
 
-ui_Welcome.h: Views/Welcome.ui \
+UI_FILE/ui_Welcome.h: Views/Welcome.ui \
 		../../Qt5.9.3/5.9.3/gcc_64/bin/uic
-	/home/sonvd3/Qt5.9.3/5.9.3/gcc_64/bin/uic Views/Welcome.ui -o ui_Welcome.h
+	/home/sonvd3/Qt5.9.3/5.9.3/gcc_64/bin/uic Views/Welcome.ui -o UI_FILE/ui_Welcome.h
 
 compiler_yacc_decl_make_all:
 compiler_yacc_decl_clean:
@@ -1037,7 +1037,7 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_ui
 
 ####### Compile
 
-main.o: main.cpp ../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/QApplication \
+OBJ_FILE/main.o: main.cpp ../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/QApplication \
 		../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/qapplication.h \
 		../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
 		../../Qt5.9.3/5.9.3/gcc_64/include/QtGui/qtguiglobal.h \
@@ -1152,9 +1152,9 @@ main.o: main.cpp ../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/QApplication \
 		../../Qt5.9.3/5.9.3/gcc_64/include/QtCore/QTimer \
 		../../Qt5.9.3/5.9.3/gcc_64/include/QtCore/qtimer.h \
 		../../Qt5.9.3/5.9.3/gcc_64/include/QtCore/qbasictimer.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o OBJ_FILE/main.o main.cpp
 
-Login.o: Views/Login.cpp Views/Login.h \
+OBJ_FILE/Login.o: Views/Login.cpp Views/Login.h \
 		../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/QWidget \
 		../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/qwidget.h \
 		../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
@@ -1255,56 +1255,10 @@ Login.o: Views/Login.cpp Views/Login.h \
 		../../Qt5.9.3/5.9.3/gcc_64/include/QtCore/qfiledevice.h \
 		../../Qt5.9.3/5.9.3/gcc_64/include/QtGui/qvector2d.h \
 		../../Qt5.9.3/5.9.3/gcc_64/include/QtGui/qtouchdevice.h \
-		ui_Login.h \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtCore/QVariant \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/QAction \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/qaction.h \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtGui/qicon.h \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/qactiongroup.h \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/QApplication \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/qapplication.h \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtCore/qcoreapplication.h \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtCore/qeventloop.h \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/qdesktopwidget.h \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtGui/qguiapplication.h \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtGui/qinputmethod.h \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/QButtonGroup \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/qbuttongroup.h \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/QGroupBox \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/qgroupbox.h \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/qframe.h \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/QHeaderView \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/qheaderview.h \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/qabstractitemview.h \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/qabstractscrollarea.h \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtCore/qabstractitemmodel.h \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtCore/qitemselectionmodel.h \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/qstyleoption.h \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/qabstractspinbox.h \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtGui/qvalidator.h \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtCore/qregularexpression.h \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/qslider.h \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/qabstractslider.h \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/qstyle.h \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/qtabbar.h \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/qtabwidget.h \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/qrubberband.h \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/QLabel \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/qlabel.h \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/QPushButton \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/qpushbutton.h \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/qabstractbutton.h \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/QTextEdit \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/qtextedit.h \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtGui/qtextdocument.h \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtGui/qtextoption.h \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtGui/qtextcursor.h \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtGui/qtextformat.h \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtGui/qpen.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Login.o Views/Login.cpp
+		UI_FILE/ui_Login.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o OBJ_FILE/Login.o Views/Login.cpp
 
-Welcome.o: Views/Welcome.cpp Views/Welcome.h \
+OBJ_FILE/Welcome.o: Views/Welcome.cpp Views/Welcome.h \
 		../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/QWidget \
 		../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/qwidget.h \
 		../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
@@ -1405,52 +1359,10 @@ Welcome.o: Views/Welcome.cpp Views/Welcome.h \
 		../../Qt5.9.3/5.9.3/gcc_64/include/QtCore/qfiledevice.h \
 		../../Qt5.9.3/5.9.3/gcc_64/include/QtGui/qvector2d.h \
 		../../Qt5.9.3/5.9.3/gcc_64/include/QtGui/qtouchdevice.h \
-		ui_Welcome.h \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtCore/QVariant \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/QAction \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/qaction.h \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtGui/qicon.h \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/qactiongroup.h \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/QApplication \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/qapplication.h \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtCore/qcoreapplication.h \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtCore/qeventloop.h \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/qdesktopwidget.h \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtGui/qguiapplication.h \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtGui/qinputmethod.h \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/QButtonGroup \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/qbuttongroup.h \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/QHBoxLayout \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/qboxlayout.h \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/qlayout.h \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/qlayoutitem.h \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/qgridlayout.h \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/QHeaderView \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/qheaderview.h \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/qabstractitemview.h \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/qabstractscrollarea.h \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/qframe.h \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtCore/qabstractitemmodel.h \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtCore/qitemselectionmodel.h \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/qstyleoption.h \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/qabstractspinbox.h \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtGui/qvalidator.h \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtCore/qregularexpression.h \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/qslider.h \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/qabstractslider.h \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/qstyle.h \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/qtabbar.h \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/qtabwidget.h \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/qrubberband.h \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/QPushButton \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/qpushbutton.h \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/qabstractbutton.h \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/QSpacerItem \
-		../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/QVBoxLayout
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Welcome.o Views/Welcome.cpp
+		UI_FILE/ui_Welcome.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o OBJ_FILE/Welcome.o Views/Welcome.cpp
 
-MainWindow.o: Views/MainWindow.cpp Views/MainWindow.h \
+OBJ_FILE/MainWindow.o: Views/MainWindow.cpp Views/MainWindow.h \
 		../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/QWidget \
 		../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/qwidget.h \
 		../../Qt5.9.3/5.9.3/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
@@ -1558,16 +1470,16 @@ MainWindow.o: Views/MainWindow.cpp Views/MainWindow.h \
 		../../Qt5.9.3/5.9.3/gcc_64/include/QtCore/QTimer \
 		../../Qt5.9.3/5.9.3/gcc_64/include/QtCore/qtimer.h \
 		../../Qt5.9.3/5.9.3/gcc_64/include/QtCore/qbasictimer.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o MainWindow.o Views/MainWindow.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o OBJ_FILE/MainWindow.o Views/MainWindow.cpp
 
-moc_Login.o: moc_Login.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_Login.o moc_Login.cpp
+OBJ_FILE/moc_Login.o: MOC_FILE/moc_Login.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o OBJ_FILE/moc_Login.o MOC_FILE/moc_Login.cpp
 
-moc_Welcome.o: moc_Welcome.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_Welcome.o moc_Welcome.cpp
+OBJ_FILE/moc_Welcome.o: MOC_FILE/moc_Welcome.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o OBJ_FILE/moc_Welcome.o MOC_FILE/moc_Welcome.cpp
 
-moc_MainWindow.o: moc_MainWindow.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_MainWindow.o moc_MainWindow.cpp
+OBJ_FILE/moc_MainWindow.o: MOC_FILE/moc_MainWindow.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o OBJ_FILE/moc_MainWindow.o MOC_FILE/moc_MainWindow.cpp
 
 ####### Install
 

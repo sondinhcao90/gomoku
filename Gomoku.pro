@@ -32,3 +32,7 @@ FORMS +=
 
 include(Views/views.pri)
 include(Globals/globals.pri)
+
+MOC_DIR         = MOC_FILE
+UI_DIR          = UI_FILE
+OBJECTS_DIR     = OBJ_FILE
