@@ -13,7 +13,7 @@ class MainWindow : public QWidget
     Q_OBJECT
 public:
     explicit MainWindow(QWidget *parent = NULL);
-
+    ~MainWindow();
 signals:
 
 private slots:
@@ -24,6 +24,7 @@ private slots:
 private:
     void setupUI();
     eScreen     m_CurrentScreen;
+    ePlayMode   m_CurrentPlayMode;
     Login       *m_pLoginScreen;
     Welcome     *m_pWelcomeScreen;
 };
