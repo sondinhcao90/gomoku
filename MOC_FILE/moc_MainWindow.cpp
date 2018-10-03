@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_MainWindow_t {
-    QByteArrayData data[8];
-    char stringdata0[89];
+    QByteArrayData data[10];
+    char stringdata0[127];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -38,11 +38,14 @@ QT_MOC_LITERAL(3, 29, 12), // "eLoginButton"
 QT_MOC_LITERAL(4, 42, 3), // "Btn"
 QT_MOC_LITERAL(5, 46, 18), // "handleWelcomeEvent"
 QT_MOC_LITERAL(6, 65, 14), // "eWelcomeButton"
-QT_MOC_LITERAL(7, 80, 8) // "updateUI"
+QT_MOC_LITERAL(7, 80, 20), // "handleTwoPlayerEvent"
+QT_MOC_LITERAL(8, 101, 16), // "eTwoPlayerButton"
+QT_MOC_LITERAL(9, 118, 8) // "updateUI"
 
     },
     "MainWindow\0handleLoginEvent\0\0eLoginButton\0"
     "Btn\0handleWelcomeEvent\0eWelcomeButton\0"
+    "handleTwoPlayerEvent\0eTwoPlayerButton\0"
     "updateUI"
 };
 #undef QT_MOC_LITERAL
@@ -53,7 +56,7 @@ static const uint qt_meta_data_MainWindow[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       3,   14, // methods
+       4,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -61,13 +64,15 @@ static const uint qt_meta_data_MainWindow[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    1,   29,    2, 0x08 /* Private */,
-       5,    1,   32,    2, 0x08 /* Private */,
-       7,    0,   35,    2, 0x08 /* Private */,
+       1,    1,   34,    2, 0x08 /* Private */,
+       5,    1,   37,    2, 0x08 /* Private */,
+       7,    1,   40,    2, 0x08 /* Private */,
+       9,    0,   43,    2, 0x08 /* Private */,
 
  // slots: parameters
     QMetaType::Void, 0x80000000 | 3,    4,
     QMetaType::Void, 0x80000000 | 6,    4,
+    QMetaType::Void, 0x80000000 | 8,    4,
     QMetaType::Void,
 
        0        // eod
@@ -81,7 +86,8 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         switch (_id) {
         case 0: _t->handleLoginEvent((*reinterpret_cast< eLoginButton(*)>(_a[1]))); break;
         case 1: _t->handleWelcomeEvent((*reinterpret_cast< eWelcomeButton(*)>(_a[1]))); break;
-        case 2: _t->updateUI(); break;
+        case 2: _t->handleTwoPlayerEvent((*reinterpret_cast< eTwoPlayerButton(*)>(_a[1]))); break;
+        case 3: _t->updateUI(); break;
         default: ;
         }
     }
@@ -112,13 +118,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 3)
+        if (_id < 4)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 3;
+        _id -= 4;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 3)
+        if (_id < 4)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 3;
+        _id -= 4;
     }
     return _id;
 }

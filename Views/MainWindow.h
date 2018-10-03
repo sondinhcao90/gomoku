@@ -6,6 +6,7 @@
 #include <Globals/macros.h>
 #include <Views/Login.h>
 #include <Views/Welcome.h>
+#include <Views/TwoPlayer.h>
 #include <QTimer>
 
 class MainWindow : public QWidget
@@ -19,6 +20,7 @@ signals:
 private slots:
     void handleLoginEvent(eLoginButton Btn);
     void handleWelcomeEvent(eWelcomeButton Btn);
+    void handleTwoPlayerEvent(eTwoPlayerButton Btn);
     void updateUI();
 
 private:
@@ -27,6 +29,7 @@ private:
     ePlayMode   m_CurrentPlayMode;
     Login       *m_pLoginScreen;
     Welcome     *m_pWelcomeScreen;
+    TwoPlayer   *m_pTwoPlayerScreen;
 };
 
 #endif // MAINWINDOW_H

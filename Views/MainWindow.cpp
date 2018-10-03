@@ -5,12 +5,14 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent)
     setupUI();
     connect(m_pWelcomeScreen, SIGNAL(BtnClicked(eWelcomeButton)), this, SLOT(handleWelcomeEvent(eWelcomeButton)));
     connect(m_pLoginScreen, SIGNAL(BtnClicked(eLoginButton)), this, SLOT(handleLoginEvent(eLoginButton)));
+    connect(m_pTwoPlayerScreen, SIGNAL(BtnClicked(eTwoPlayerButton)), this, SLOT(handleTwoPlayerEvent(eTwoPlayerButton)));
 }
 
 MainWindow::~MainWindow()
 {
     delete m_pLoginScreen;
     delete m_pWelcomeScreen;
+    delete m_pTwoPlayerScreen;
 }
 
 void MainWindow::handleLoginEvent(eLoginButton Btn)
@@ -38,7 +40,7 @@ void MainWindow::handleWelcomeEvent(eWelcomeButton Btn)
     case BtnTwoPlayer:
         m_CurrentScreen = SC_TwoPlayer;
         m_CurrentPlayMode = PM_TwoPlayer;
-        m_pLoginScreen->hide();
+        m_pTwoPlayerScreen->show();
         m_pWelcomeScreen->hide();
         break;
     case BtnPlayOnline:
@@ -58,13 +60,29 @@ void MainWindow::handleWelcomeEvent(eWelcomeButton Btn)
     }
 }
 
+void MainWindow::handleTwoPlayerEvent(eTwoPlayerButton Btn)
+{
+    switch (Btn) {
+    case BtnBackTP:
+        m_CurrentScreen = SC_TwoPlayer;
+        m_CurrentPlayMode = PM_TwoPlayer;
+        m_pTwoPlayerScreen->hide();
+        m_pWelcomeScreen->show();
+        break;
+    default:
+        break;
+    }
+}
+
 void MainWindow::setupUI()
 {
     this->setStyleSheet(QString::fromUtf8("background-color: rgb(186, 189, 182);"));
     m_pWelcomeScreen = new Welcome(this);
     m_pLoginScreen = new Login(this);
+    m_pTwoPlayerScreen = new TwoPlayer(this);
     m_pWelcomeScreen->show();
     m_pLoginScreen->hide();
+    m_pTwoPlayerScreen->hide();
 }
 
 void MainWindow::updateUI()
